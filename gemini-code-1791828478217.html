@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Genie Support — Federal Bank</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag.js?id=G-MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MEASUREMENT_ID');
+</script>
+
+<style>
+  :root {
+    --federal-blue:  #004CBE;   /* Federal Blue */
+    --midnight-blue: #00265F;   /* Midnight Blue */
+    --royal-blue:    #0163e6;   /* Royal Blue Accent */
+    --golden-glow:   #FFA800;   /* Golden Glow Accent */
+    --white:         #FFFFFF;
+    --wa-green:      #25D366;   /* WhatsApp brand */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    background: radial-gradient(circle at top right, #0163e6 0%, var(--federal-blue) 40%, var(--midnight-blue) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Decorative ambient lighting / wave effect */
+  .wave {
+    position: fixed; inset: auto 0 0 0; height: 32vh;
+    background: radial-gradient(120% 100% at 50% 100%, rgba(255,168,0,.18) 0%, rgba(255,168,0,0) 70%);
+    pointer-events: none;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(0, 20, 60, 0.35), 0 4px 15px rgba(0, 76, 190, 0.15);
+    padding: 44px 32px 32px;
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  h1 {
+    color: var(--midnight-blue);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -.3px;
+    margin-bottom: 28px;
+  }
+  h1 .accent { color: var(--federal-blue); }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* Stylish Action Buttons */
+  .primary {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--federal-blue) 0%, var(--royal-blue) 100%);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    box-shadow: 0 8px 22px rgba(0, 76, 190, 0.28);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(255,255,255,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 76, 190, 0.38);
+  }
+  .primary:hover::after { opacity: 1; }
+  .primary:active { transform: translateY(-1px); }
+
+  .primary .btn-icon {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .primary .btn-icon svg { width: 18px; height: 18px; fill: var(--white); }
+
+  .primary .arrow {
+    margin-left: auto;
+    font-size: 15px;
+    transition: transform 0.3s ease;
+    opacity: 0.85;
+  }
+  .primary.open .arrow { transform: rotate(180deg); }
+
+  /* Specific Button Themes */
+  .feddy {
+    background: linear-gradient(135deg, var(--midnight-blue) 0%, #033482 100%);
+    box-shadow: 0 8px 22px rgba(0, 38, 95, 0.3);
+  }
+  .feddy .wa-chip {
+    width: 32px; height: 32px; border-radius: 10px;
+    background: var(--wa-green);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+    flex-shrink: 0;
+  }
+  .feddy .wa-chip svg { width: 18px; height: 18px; fill: #fff; }
+
+  .kyc {
+    background: linear-gradient(135deg, var(--golden-glow) 0%, #ffc13b 100%);
+    color: var(--midnight-blue);
+    box-shadow: 0 8px 22px rgba(255, 168, 0, 0.3);
+  }
+  .kyc .btn-icon { background: rgba(0, 38, 95, 0.12); }
+  .kyc .btn-icon svg { fill: var(--midnight-blue); }
+  .kyc .arrow { color: var(--midnight-blue); }
+
+  .byom {
+    background: linear-gradient(135deg, #0248ae 0%, #00265F 100%);
+    box-shadow: 0 8px 22px rgba(2, 72, 174, 0.3);
+  }
+
+  .services {
+    background: linear-gradient(135deg, #103269 0%, #00193d 100%);
+    box-shadow: 0 8px 22px rgba(16, 50, 105, 0.3);
+  }
+
+  /* Fedmobile Sub-options Accordion */
+  .options {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .options.show {
+    max-height: 180px;
+    opacity: 1;
+    margin-top: 2px;
+  }
+
+  .option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    transition: all 0.2s ease;
+  }
+  .option:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+  }
+  .option .icon {
+    width: 32px; height: 32px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, 0.18); flex-shrink: 0;
+  }
+  .option .icon svg { width: 17px; height: 17px; fill: var(--white); }
+  .option .label { text-align: left; line-height: 1.25; }
+  .option .label small { display: block; font-weight: 400; font-size: 11.5px; opacity: 0.85; }
+  .option .chev { margin-left: auto; font-size: 16px; opacity: 0.9; }
+
+  .android {
+    background: linear-gradient(135deg, var(--midnight-blue), #063a8f);
+    box-shadow: 0 6px 16px rgba(0, 38, 95, 0.25);
+  }
+  .ios {
+    background: linear-gradient(135deg, var(--golden-glow), #ffb733);
+    color: var(--midnight-blue);
+    box-shadow: 0 6px 16px rgba(255, 168, 0, 0.25);
+  }
+  .ios .icon svg { fill: var(--midnight-blue); }
+  .ios .icon { background: rgba(0, 38, 95, 0.12); }
+
+  /* Custom Footer styling */
+  .footer-credit {
+    margin-top: 28px;
+    font-size: 11px;
+    color: #8b97ab;
+    letter-spacing: .4px;
+    text-transform: lowercase;
+  }
+</style>
+</head>
+<body>
+  <div class="wave"></div>
+
+  <div class="card">
+    <h1>Digital <span class="accent">Genie</span> Support</h1>
+
+    <div class="stack">
+
+      <!-- Option 1: Fedmobile (Dropdown) -->
+      <button class="primary" id="fedBtn" aria-expanded="false" aria-controls="platformOptions">
+        <span class="btn-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.6-1.4 2.4c-.1.3-.2.7-.2 1 0 1.1.9 2 2 2h12v-2H7.4c-.1 0-.2-.1-.2-.2l.1-.2.9-1.6h7.4c.7 0 1.4-.4 1.7-1l3.6-6.5c.1-.2.1-.3.1-.5 0-.6-.4-1-1-1H5.2l-.9-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+        </span>
+        Fedmobile
+        <span class="arrow">▾</span>
+      </button>
+
+      <div class="options" id="platformOptions">
+        <a class="option android"
+           href="https://play.google.com/store/apps/details?id=com.fedmobile"
+           target="_blank" rel="noopener">
+          <span class="icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3.6 2.4 13.7 12 3.6 21.6c-.4-.3-.6-.8-.6-1.4V3.8c0-.6.2-1.1.6-1.4zm11.6 8.1 2.6-2.4 2.9 1.7c.9.5.9 1.9 0 2.4l-2.9 1.7-2.6-2.4-.9-1 .9-1zm-1.5 1.5L4.9 3.1c-.2 0-.4.1-.5.2l9.3 8.7zm0 1.1-9.3 8.7c.1.1.3.2.5.2l8.8-8.9z"/>
+            </svg>
+          </span>
+          <span class="label">Android<small>Google Play Store</small></span>
+          <span class="chev">›</span>
+        </a>
+        <a class="option ios"
+           href="https://apps.apple.com/in/app/fedmobile/id1027354100"
+           target="_blank" rel="noopener">
+          <span class="icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.05 12.54c-.03-2.6 2.12-3.85 2.22-3.91-1.21-1.77-3.09-2.01-3.76-2.04-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.89-1.74.03-3.35 1.01-4.25 2.57-1.81 3.14-.46 7.79 1.3 10.34.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.27 3.15-2.53.99-1.45 1.4-2.85 1.42-2.92-.03-.01-2.72-1.04-2.75-4.13zM14.44 4.9c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.29.69-3.03 1.56-.66.77-1.25 2-1.09 3.18 1.15.09 2.33-.58 3.05-1.45z"/>
+            </svg>
+          </span>
+          <span class="label">iOS<small>Apple App Store</small></span>
+          <span class="chev">›</span>
+        </a>
+      </div>
+
+      <!-- Option 2: Feddy WhatsApp -->
+      <a class="primary feddy"
+         href="https://wa.me/919633700800?text=Hi"
+         target="_blank" rel="noopener">
+        <span class="wa-chip" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.92 11.92 0 0 0 12.04 0C5.46 0 .1 5.36.1 11.94c0 2.1.55 4.15 1.6 5.96L0 24l6.34-1.66a11.94 11.94 0 0 0 5.7 1.45h.01c6.58 0 11.94-5.36 11.94-11.94 0-3.19-1.24-6.19-3.47-8.45zM12.05 21.8h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.76.99 1-3.66-.24-.38a9.9 9.9 0 1 1 18.36-5.22c0 5.47-4.45 9.86-9.95 9.86zm5.45-7.39c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.17-.35.22-.65.07c-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01a1.1 1.1 0 0 0-.8.37c-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>
+        </span>
+        Feddy — Chat on WhatsApp
+        <span class="arrow">›</span>
+      </a>
+
+      <!-- Option 3: KYC Update -->
+      <a class="primary kyc"
+         href="https://accountopen.federalbank.co.in/kyc-ui/"
+         target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+          </svg>
+        </span>
+        KYC Update
+        <span class="arrow">›</span>
+      </a>
+
+      <!-- Option 4: BYOM Instant Loan -->
+      <a class="primary byom"
+         href="https://fblapp.federalbank.co.in/byom/webengine/loan"
+         target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.64 0 2.28 1.91 3.35 4.71 4.03 2.4.58 3 1.41 3 2.35 0 .96-.92 1.82-2.91 1.82-2.07 0-2.77-.96-2.85-2.22H6.5c.08 2.05 1.48 3.32 3.51 3.8v2.19h3v-2.18c1.99-.39 3.5-1.56 3.5-3.69 0-2.31-1.91-3.41-4.71-4.09z"/>
+          </svg>
+        </span>
+        BYOM Instant Loan
+        <span class="arrow">›</span>
+      </a>
+
+      <!-- Option 5: For More Services -->
+      <a class="primary services"
+         href="https://fedepoint.federal.bank.in/Fedepoint/"
+         target="_blank" rel="noopener">
+        <span class="btn-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+          </svg>
+        </span>
+        For more services
+        <span class="arrow">›</span>
+      </a>
+
+    </div>
+
+    <!-- Small Footer Credit -->
+    <div class="footer-credit">created by 11777</div>
+  </div>
+
+<script>
+  var fedBtn  = document.getElementById('fedBtn');
+  var options = document.getElementById('platformOptions');
+  
+  fedBtn.addEventListener('click', function () {
+    var isOpen = options.classList.toggle('show');
+    fedBtn.classList.toggle('open', isOpen);
+    fedBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  if (window.location.hash === '#open') {
+    options.classList.add('show');
+    fedBtn.classList.add('open');
+    fedBtn.setAttribute('aria-expanded', 'true');
+  }
+
+  // Google Analytics Event Tracking (Excluding Fedmobile & its options)
+  document.addEventListener('click', function (event) {
+    var targetButton = event.target.closest('button, a');
+    if (!targetButton) return;
+
+    // Check if the clicked element is Fedmobile button or inside the platformOptions container
+    var isFedmobileToggle = (targetButton.id === 'fedBtn');
+    var isFedmobileSubOption = targetButton.closest('#platformOptions');
+
+    // Skip tracking if it belongs to Fedmobile
+    if (isFedmobileToggle || isFedmobileSubOption) {
+      return;
+    }
+
+    // Track click event for other buttons
+    if (typeof gtag === 'function') {
+      gtag('event', 'button_click', {
+        'button_text': targetButton.innerText.trim(),
+        'button_url': targetButton.href || 'none'
+      });
+    }
+  });
+</script>
+</body>
+</html>
